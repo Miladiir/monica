@@ -2,11 +2,31 @@ name: Build and push
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*.*.*' ]
   workflow_dispatch:
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            miladiir/monica
+            ghcr.io/miladiir/monica
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -20,13 +40,20 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Login to GHCR
+          uses: docker/login-action@v1
+          with:
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
+            password: ${{ secrets.GH_PACKAGES_TOKEN }}
+      -
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           platforms: linux/386,linux/amd64,linux/arm64/v8,linux/arm/v5,linux/arm/v7,linux/mips64le,linux/ppc64le,linux/s390x
-          tags: miladiir/monica:latest
+          tags: ${{ steps.meta.outputs.labels }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
