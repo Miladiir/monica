@@ -1,4 +1,4 @@
-FROM monica:3.4.0-apache@sha256:faa653df440d604b8fe82cbbd58034f656234ca01a5760473c66db2e50b6d9c1
+FROM monica:3.4.0-apache@sha256:ad240ede44e6e21d892576beecf1078641db02327cd2f5bf8b232bdcb9f41ef3
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
