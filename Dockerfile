@@ -1,4 +1,4 @@
-FROM monica:3.5.0-apache@sha256:411e89b6fe74b15378da5db81e792b471ddad6349d6afe94ba86c4839fcb7d77
+FROM monica:3.6.0-apache@sha256:e0ace4f1faee46830a80a2f5c71ca934a72ac0617ea57e1469e8133ae1e23c5d
 LABEL org.opencontainers.image.source = "https://github.com/Miladiir/monica"
 
 # Use the default production configuration
