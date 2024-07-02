@@ -1,4 +1,4 @@
-FROM monica:4.1.2-apache@sha256:03f20daa3f2ba5835c8ada21829ea16756774154b2e6128f082c0eb4b987975f
+FROM monica:4.1.2-apache@sha256:64c41837c2e83f766bea1adc5d8ab8606da9812452c89a67ac24fce1a3388d72
 LABEL org.opencontainers.image.source = "https://github.com/Miladiir/monica"
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"; \
