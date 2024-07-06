@@ -6,9 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       VERSION:
-        type: text
+        type: string
         required: true
         default: "v4.1.2"
+
+env:
+  VERSION: "v4.1.2"
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -27,9 +31,9 @@ jobs:
             ghcr.io/miladiir/monica
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=semver,pattern={{version}},value=${{ inputs.VERSION || v4.1.2}}
-            type=semver,pattern={{major}}.{{minor}},value=${{ inputs.VERSION || v4.1.2}}
-            type=semver,pattern={{major}},value=${{ inputs.VERSION || v4.1.2}}
+            type=semver,pattern={{version}},value=${{ inputs.VERSION || env.VERSION}}
+            type=semver,pattern={{major}}.{{minor}},value=${{ inputs.VERSION || env.VERSION }}
+            type=semver,pattern={{major}},value=${{ inputs.VERSION || env.VERSION}}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@5927c834f5b4fdf503fca6f4c7eccda82949e1ee # v3
