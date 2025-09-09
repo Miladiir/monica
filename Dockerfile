@@ -1,4 +1,4 @@
-FROM monica:4.1.2-apache@sha256:f9ea818655ebefbd205956f20bf087593260cb810f752ac53ef92e7cad6db376
+FROM monica:4.1.2-apache@sha256:cf3c0dc77cb6ab946a63f132d6ff7e1761a9df4c0afae5d7fe80e30156bcf449
 LABEL org.opencontainers.image.source="https://github.com/Miladiir/monica"
 
 RUN <<EOF
